@@ -1,0 +1,135 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.29.0">
+      <projectUrl>https://github.com/SleepNumberInc/UFT_Tests.git/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>TEST_SUITE</name>
+          <description>Name of Test Suite</description>
+          <defaultValue>AUT_Digital_Chrome_Test2Web</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TEST_NAME</name>
+          <description>Name of UFT Test</description>
+          <defaultValue>WEB_001_Enter_a_Guest_Sales_Order_Standard_HD_MC</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TEST_PATH</name>
+          <description>Path to the UFT Test</description>
+          <defaultValue>d:\jenkins\workspace\SlaveTestBuild\Digital_Regression\Core\WEB_001_Enter_a_Guest_Sales_Order_Standard_HD_MC</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.8.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/SleepNumberInc/UFT_Tests.git/</url>
+        <credentialsId>GithubSleepNumber</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <quietPeriod>10</quietPeriod>
+  <assignedNode>Digital</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>thynicemouseswing</authToken>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>python -m pip install -r requirements.txt --user&#xd;
+&#xd;
+python BuildMTBX.py &quot;%TEST_NAME%&quot; &quot;%TEST_PATH%&quot; &quot;%TEST_SUITE%&quot;&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+    <com.hpe.application.automation.tools.run.RunFromFileBuilder plugin="hp-application-automation-tools-plugin@5.3.4-beta">
+      <ResultFilename>Results11052018103648496.xml</ResultFilename>
+      <ParamFileName>props11052018103648496.txt</ParamFileName>
+      <runFromFileModel>
+        <fsTests>D:\jenkins\workspace\SlaveTestBuild\TestMTBX.mtbx
+</fsTests>
+        <fsTimeout></fsTimeout>
+        <fsUftRunMode>Fast</fsUftRunMode>
+        <controllerPollingInterval>30</controllerPollingInterval>
+        <perScenarioTimeOut>10</perScenarioTimeOut>
+        <ignoreErrorStrings></ignoreErrorStrings>
+        <mcServerName></mcServerName>
+        <fsUserName></fsUserName>
+        <fsPassword>{AQAAABAAAAAQLhbqb6bf8xWrR6nivFGnjHK2Zj/RSZOwhq+wBLXGFxw=}</fsPassword>
+        <fsDeviceId></fsDeviceId>
+        <fsOs></fsOs>
+        <fsManufacturerAndModel></fsManufacturerAndModel>
+        <fsTargetLab></fsTargetLab>
+        <fsAutActions></fsAutActions>
+        <fsLaunchAppName></fsLaunchAppName>
+        <fsInstrumented></fsInstrumented>
+        <fsDevicesMetrics></fsDevicesMetrics>
+        <fsExtraApps></fsExtraApps>
+        <fsJobId></fsJobId>
+        <useSSL>false</useSSL>
+      </runFromFileModel>
+    </com.hpe.application.automation.tools.run.RunFromFileBuilder>
+  </builders>
+  <publishers>
+    <com.hpe.application.automation.tools.results.RunResultRecorder plugin="hp-application-automation-tools-plugin@5.3.4-beta">
+      <__resultsPublisherModel>
+        <archiveTestResultsMode>ALWAYS_ARCHIVE_TEST_REPORT</archiveTestResultsMode>
+      </__resultsPublisherModel>
+      <runReportList/>
+    </com.hpe.application.automation.tools.results.RunResultRecorder>
+    <com.qasymphony.ci.plugin.action.PushingResultAction plugin="qtest@1.3.1">
+      <configuration>
+        <id>5471</id>
+        <url>https://sleepnumber.qtestnet.com</url>
+        <appSecretKey>938ba7da-deb3-4925-a7e9-32b1e1e558a5</appSecretKey>
+        <projectId>77759</projectId>
+        <projectName>Digital - OLD</projectName>
+        <releaseId>313071</releaseId>
+        <releaseName>Digital 18.05.a</releaseName>
+        <environmentId>0</environmentId>
+        <environmentName></environmentName>
+        <testSuiteId>2252927</testSuiteId>
+        <moduleId>4908326</moduleId>
+        <jenkinsServerUrl>http://10.8.32.114:8080</jenkinsServerUrl>
+        <jenkinsProjectName>SlaveTestBuild</jenkinsProjectName>
+        <submitToContainer>true</submitToContainer>
+        <containerSetting>{&quot;selectedContainer&quot;:{&quot;name&quot;:&quot;RL-1 Digital 18.04.a&quot;,&quot;dailyCreateTestSuite&quot;:true},&quot;containerPath&quot;:&quot;[{\&quot;nodeId\&quot;: 305810, \&quot;parentId\&quot;: 0, \&quot;nodeType\&quot;: \&quot;release\&quot;}]&quot;}</containerSetting>
+        <overwriteExistingTestSteps>true</overwriteExistingTestSteps>
+        <environmentParentId>0</environmentParentId>
+        <readFromJenkins>false</readFromJenkins>
+        <resultPattern></resultPattern>
+        <eachMethodAsTestCase>true</eachMethodAsTestCase>
+      </configuration>
+    </com.qasymphony.ci.plugin.action.PushingResultAction>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.9"/>
+  </buildWrappers>
+</project>
